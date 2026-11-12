@@ -1,0 +1,25 @@
+[Unit]
+Description=RaspberryON servicio @NAME@
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=svc-@NAME@
+Group=svc-@NAME@
+EnvironmentFile=-/etc/raspberryon/@NAME@.env
+WorkingDirectory=/opt/raspberryon/@NAME@
+ExecStart=/usr/bin/python3 /opt/raspberryon/@NAME@/app.py
+Restart=always
+RestartSec=3
+
+# Endurecimiento (D1)
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+StateDirectory=raspberryon/@NAME@
+
+[Install]
+WantedBy=multi-user.target

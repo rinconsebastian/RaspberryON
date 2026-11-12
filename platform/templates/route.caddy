@@ -1,0 +1,4 @@
+redir /@NAME@ /@NAME@/ 308
+handle_path /@NAME@/* {
+	reverse_proxy 127.0.0.1:@PORT@
+}

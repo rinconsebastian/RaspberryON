@@ -1,0 +1,36 @@
+[Unit]
+Description=RaspberryON servicio @NAME@ (control de encendido del PC)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=svc-@NAME@
+Group=svc-@NAME@
+SupplementaryGroups=gpio
+EnvironmentFile=-/etc/raspberryon/@NAME@.env
+Environment=PYTHONPATH=/opt/raspberryon/@NAME@
+# lgpio crea tuberías en el directorio de trabajo: debe ser escribible (StateDirectory)
+WorkingDirectory=/var/lib/raspberryon/@NAME@
+# El relé debe quedar abierto antes de arrancar y tras terminar por cualquier causa (kill -9, fallo):
+# el núcleo no devuelve a entrada un pin que murió como salida.
+ExecStartPre=/opt/raspberryon/@NAME@/venv/bin/python -m app.release
+ExecStart=/opt/raspberryon/@NAME@/venv/bin/python -m app
+ExecStopPost=/opt/raspberryon/@NAME@/venv/bin/python -m app.release
+Restart=always
+RestartSec=3
+# Una configuración inválida (código 1) no se reintenta en bucle
+RestartPreventExitStatus=1
+
+# Endurecimiento. No se restringe CAP_NET_RAW ni la red: hace falta para el ping.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+StateDirectory=raspberryon/@NAME@
+DevicePolicy=closed
+DeviceAllow=/dev/gpiochip0 rw
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,7 @@
+# Los scripts y archivos de despliegue se ejecutan en Linux: siempre LF
+*.sh text eol=lf
+*.unit text eol=lf
+*.caddy text eol=lf
+Caddyfile text eol=lf
+env.example text eol=lf
+groups text eol=lf

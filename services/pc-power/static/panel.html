@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<title>Panel</title>
+<link rel="stylesheet" href="static/app.css">
+<meta name="theme-color" content="#1d4ed8">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="{{APP_NAME}}">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="static/icons/apple-touch-icon.png">
+<script src="static/sw-register.js" defer></script>
+<script src="static/panel.js" defer></script>
+</head>
+<body>
+<main class="panel">
+  <h1 id="name">{{NAME}}</h1>
+
+  <section id="status" class="status" data-state="checking" aria-live="polite">
+    <span class="dot" aria-hidden="true"></span>
+    <div>
+      <p id="state-text" class="state">Comprobando…</p>
+      <p id="state-age" class="age"></p>
+    </div>
+  </section>
+
+  <p id="notice" class="notice" hidden></p>
+
+  <div class="actions">
+    <button id="btn-on" class="btn primary" type="button" hidden>Encender</button>
+    <button id="btn-soft" class="btn primary" type="button" hidden>Apagar</button>
+    <button id="btn-force" class="btn danger hold" type="button" hidden>
+      <span class="fill"></span><span class="label">Forzar apagado · mantén pulsado</span>
+    </button>
+  </div>
+
+  <p id="feedback" class="feedback" role="status"></p>
+
+  <section id="schedule" class="schedule" aria-label="Programación">
+    <p id="sch-on" class="sch" hidden>
+      <span id="sch-on-text"></span>
+      <button id="sch-on-cancel" class="link" type="button">Cancelar</button>
+    </p>
+    <p id="sch-off" class="sch" hidden>
+      <span id="sch-off-text"></span>
+      <button id="sch-off-cancel" class="link" type="button">Cancelar</button>
+    </p>
+    <form id="sch-on-form" class="sch-form" hidden>
+      <label for="sch-on-time">Encender a las</label>
+      <div class="row">
+        <input id="sch-on-time" type="time" required>
+        <button class="btn small" type="submit">Programar encendido</button>
+      </div>
+    </form>
+    <form id="sch-off-form" class="sch-form" hidden>
+      <label for="sch-off-time">Apagar a las</label>
+      <div class="row">
+        <input id="sch-off-time" type="time" required>
+        <button class="btn small" type="submit">Programar apagado</button>
+      </div>
+    </form>
+    <p id="clock" class="age"></p>
+  </section>
+
+  <details id="activity" class="more">
+    <summary>Actividad</summary>
+    <ul id="activity-list" class="activity"></ul>
+    <p id="activity-empty" class="note" hidden>Sin actividad todavía.</p>
+  </details>
+
+  <details class="more">
+    <summary>Más opciones</summary>
+    <div class="more-body">
+      <button id="btn-force2" class="btn danger hold subtle" type="button" hidden>
+        <span class="fill"></span><span class="label">Forzar apagado · mantén pulsado</span>
+      </button>
+      <button id="btn-logout" class="btn" type="button">Cerrar sesión</button>
+      <button id="btn-logout-all" class="btn" type="button">Cerrar todas las sesiones</button>
+    </div>
+  </details>
+</main>
+</body>
+</html>

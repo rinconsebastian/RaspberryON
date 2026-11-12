@@ -1,0 +1,25 @@
+# Punto de entrada único de RaspberryON.
+# SITE_ADDRESS (en /etc/caddy/site.env): vacío => ":443" (IP, certificado autofirmado);
+# con dominio => Caddy obtiene y renueva un certificado Let's Encrypt.
+# Los servicios solo escuchan en 127.0.0.1; Caddy es el único proceso expuesto.
+
+# HTTP -> HTTPS
+http:// {
+	header -Server
+	redir https://{host}{uri} permanent
+}
+
+{$SITE_ADDRESS::443} {
+	# /etc/caddy/tls.caddy: "tls internal { on_demand }" por defecto; vacío al usar dominio.
+	import /etc/caddy/tls.caddy
+
+	header -Server
+
+	# Fragmentos de cada servicio: /etc/caddy/conf.d/<nombre>.caddy
+	import /etc/caddy/conf.d/*.caddy
+
+	# Todo lo demás: 404 sin cuerpo (no revela qué servicios existen).
+	handle {
+		respond 404
+	}
+}

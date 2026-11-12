@@ -1,0 +1,21 @@
+# Secretos y entorno
+.env
+*.env
+!env.example
+!**/env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Varios
+*.bak
+.DS_Store
+data-dev/
+
+# Datos locales de cada instalación (no versionar)
+.pi-host
+backups/

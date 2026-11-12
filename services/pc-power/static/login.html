@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<title>Acceso</title>
+<link rel="stylesheet" href="static/app.css">
+<meta name="theme-color" content="#1d4ed8">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="{{APP_NAME}}">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="static/icons/apple-touch-icon.png">
+<script src="static/sw-register.js" defer></script>
+</head>
+<body>
+<main class="card">
+  <form method="post" action="login" autocomplete="off">
+    <label for="code">Código</label>
+    <input id="code" name="code" type="password" inputmode="text" autocomplete="current-password"
+           autocapitalize="off" autocorrect="off" spellcheck="false" autofocus>
+    <button class="btn primary" type="submit">Entrar</button>
+  </form>
+  {{MSG}}
+</main>
+</body>
+</html>
